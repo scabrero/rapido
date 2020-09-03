@@ -42,19 +42,26 @@ mkdir -p /mnt/
 mount -t $filesystem /dev/zram0 /mnt/ || _fatal
 chmod 777 /mnt/ || _fatal
 
-mkdir -p /usr/local/samba/var/
-mkdir -p /usr/local/samba/etc/
-mkdir -p /usr/local/samba/var/lock
-mkdir -p /usr/local/samba/private/
-mkdir -p /usr/local/samba/lib/
-ln -s ${SAMBA_SRC}/bin/modules/vfs/ /usr/local/samba/lib/vfs
+SAMBA_LIBDIR="$(smbd -b | grep -Po 'LIBDIR: \K.*$')"
+SAMBA_LOCKDIR="$(smbd -b | grep -Po 'LOCKDIR: \K.*$')"
+SAMBA_CONFIGFILE="$(smbd -b | grep -Po 'CONFIGFILE: \K.*$')"
+SAMBA_PRIVATEDIR="$(smbd -b | grep -Po 'PRIVATE_DIR: \K.*$')"
+SAMBA_LOGBASEDIR="$(smbd -b | grep -Po 'LOGFILEBASE: \K.*$')"
+SAMBA_CONFIGDIR="$(dirname ${SAMBA_CONFIGFILE})"
+
+mkdir -p ${SAMBA_LOGBASEDIR}
+mkdir -p ${SAMBA_CONFIGDIR}
+mkdir -p ${SAMBA_LOCKDIR}
+mkdir -p ${SAMBA_PRIVATEDIR}
+mkdir -p ${SAMBA_LIBDIR}
+ln -s ${SAMBA_SRC}/bin/modules/vfs/ ${SAMBA_LIBDIR}/vfs
 
 smb_conf_vfs=""
 if [ "$filesystem" == "btrfs" ]; then
 	smb_conf_vfs='vfs objects = btrfs'
 fi
 
-cat > /usr/local/samba/etc/smb.conf << EOF
+cat > ${SAMBA_CONFIGFILE} << EOF
 [global]
 	workgroup = MYGROUP
 	load printers = no
@@ -82,4 +89,4 @@ ip link show eth0 | grep $MAC_ADDR2 &> /dev/null
 if [ $? -eq 0 ]; then
 	echo "Samba share ready at: //${IP_ADDR2}/${CIFS_SHARE}/"
 fi
-echo "Log at: /usr/local/samba/var/log.smbd"
+echo "Log at: ${SAMBA_LOGBASEDIR}/log.smbd"
