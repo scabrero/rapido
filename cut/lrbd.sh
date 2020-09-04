@@ -49,6 +49,8 @@ rados_cython="${CEPH_SRC}"/build/lib/cython_modules/lib.3/rados.cpython-34m.so
 	--include "$TARGETCLI_SRC" "/targetcli/" \
 	--include "$CONFIGSHELL_SRC" "/configshell/" \
 	--include "$RAPIDO_DIR/autorun/lrbd.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--add-drivers "iscsi_target_mod target_core_mod target_core_rbd" \

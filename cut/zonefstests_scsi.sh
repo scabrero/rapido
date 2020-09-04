@@ -23,6 +23,8 @@ _rt_require_conf_dir ZONEFSTOOLS_SRC
 		   rm truncate ${ZONEFSTOOLS_SRC}/src/mkzonefs" \
 	--include "$ZONEFSTOOLS_SRC/tests/" "/zonefs-tests" \
 	--include "$RAPIDO_DIR/autorun/zonefstests_scsi.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--add-drivers "scsi_debug zonefs" \

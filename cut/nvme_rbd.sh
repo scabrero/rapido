@@ -32,6 +32,8 @@ _rt_require_lib "libkeyutils.so.1"
 	--include "$RBD_NAMER_BIN" "/usr/bin/ceph-rbdnamer" \
 	--include "$RBD_UDEV_RULES" "/usr/lib/udev/rules.d/50-rbd.rules" \
 	--include "$RAPIDO_DIR/autorun/nvme_rbd.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--include "$vm_ceph_conf" "/vm_ceph.env" \

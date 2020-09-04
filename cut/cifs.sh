@@ -23,6 +23,8 @@ _rt_require_dracut_args
 		   getfattr setfattr chacl attr killall sync \
 		   dirname seq basename fstrim chattr lsattr stat" \
 	--include "$RAPIDO_DIR/autorun/cifs.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--add-drivers "cifs ccm gcm ctr" \

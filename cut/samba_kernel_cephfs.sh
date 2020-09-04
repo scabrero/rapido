@@ -32,6 +32,8 @@ _rt_require_conf_dir SAMBA_SRC
 		   ${SAMBA_SRC}/bin/smbstatus \
 		   ${SAMBA_SRC}/bin/smbd" \
 	--include "$RAPIDO_DIR/autorun/samba_kernel_cephfs.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--include "$vm_ceph_conf" "/vm_ceph.env" \

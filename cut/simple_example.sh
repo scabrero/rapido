@@ -37,6 +37,8 @@ _rt_require_dracut_args
 "$DRACUT" \
 	--install "ps rmdir dd mkfs.xfs" \
 	--include "$RAPIDO_DIR/autorun/simple_example.sh" "/.profile" \
+	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
+		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
 	--add-drivers "zram lzo lzo-rle" \
