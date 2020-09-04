@@ -235,6 +235,12 @@ INITIATOR_IQNS="iqn.2007-10.com.github:sahlberg:libiscsi:iscsi-test \
 #SAMBA_SRC=""
 #################################
 
+######### cut/cifs_witness.sh ########
+# CIFS_UTILS_SRC should correspond to a checkout and build of cifs-utils.
+# e.g. CIFS_UTILS_SRC="/home/me/cifs-utils"
+#CIFS_UTILS_SRC=""
+#################################
+
 ########## cut/lrbd.sh #########
 # These should all correspond to checked-out source repositories
 #LRBD_SRC=""
