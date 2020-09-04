@@ -29,12 +29,17 @@ mount_args="-ocredentials=${creds_path}"
 [ -n "$CIFS_MOUNT_OPTS" ] && mount_args="${mount_args},${CIFS_MOUNT_OPTS}"
 set -x
 
+ip route add default via 192.168.155.1
+
+echo "192.168.101.200 fs.fover.ad" >> /etc/hosts
+
 export PATH="${CIFS_UTILS_SRC}:${SAMBA_SRC}/bin:${PATH}"
 
-SAMBA_CONFIGFILE="$(smbd -b | grep -Po 'CONFIGFILE: \K.*$')"
+#SAMBA_CONFIGFILE="$(smbd -b | grep -Po 'CONFIGFILE: \K.*$')"
+SAMBA_CONFIGFILE="/home/scabrero/workspace/samba/witness4cifs/deploy/etc/smb.conf"
 SAMBA_CONFIGDIR="$(dirname ${SAMBA_CONFIGFILE})"
-mkdir -p ${SAMBA_CONFIGDIR}
 
+mkdir -p ${SAMBA_CONFIGDIR}
 cat > ${SAMBA_CONFIGFILE} << EOF
 [global]
 	workgroup = ${CIFS_DOMAIN}

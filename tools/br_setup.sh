@@ -74,5 +74,8 @@ if [ -n "$BR_DHCP_SRV_RANGE" ]; then
 	echo "+ started DHCP server"
 fi
 
+iptables -I FORWARD 1 -i virbr0 -o rapido-br -j ACCEPT
+iptables -I FORWARD 1 -o virbr0 -i rapido-br -j ACCEPT
+
 # success! clear unwind
 unwind=""
