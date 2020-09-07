@@ -29,6 +29,8 @@ mount_args="-ocredentials=${creds_path}"
 [ -n "$CIFS_MOUNT_OPTS" ] && mount_args="${mount_args},${CIFS_MOUNT_OPTS}"
 set -x
 
+systemctl start systemd-journald.service
+
 ip route add default via 192.168.155.1
 
 echo "192.168.101.200 fs.fover.ad" >> /etc/hosts

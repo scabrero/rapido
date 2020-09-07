@@ -25,13 +25,13 @@ _rt_require_dracut_args
 		   file ldd logger \
 		   ${SAMBA_SRC}/bin/smbd \
 		   ${CIFS_UTILS_SRC}/swnd " \
+	--include "$RAPIDO_DIR/autorun/cifs_witness.sh" "/.profile" \
 	--include "$RAPIDO_DIR/autorun/00-rapido-init.sh" \
 		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
-	--include "$RAPIDO_DIR/autorun/cifs_witness.sh" "/root/.profile" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
-	--modules "bash base systemd systemd-initrd systemd-journald dracut-systemd" \
 	--add-drivers "cifs zram ccm gcm ctr" \
+	--modules "bash base systemd systemd-initrd dracut-systemd" \
 	$DRACUT_EXTRA_ARGS \
 	$DRACUT_OUT || _fail "dracut failed"
 
