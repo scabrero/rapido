@@ -19,6 +19,8 @@ _rt_require_conf_setting BR_DEV TAP_DEV0 TAP_DEV1
 
 set -x
 
+${RAPIDO_DIR}/tools/wondershaper -a rapido-br -c
+
 if [ -n "$BR_DHCP_SRV_RANGE" ]; then
 	dnsmasq_pid=`ps -eo pid,args | grep -v grep | grep dnsmasq \
 			| grep -- --interface=$BR_DEV \

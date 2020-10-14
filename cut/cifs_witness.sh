@@ -22,7 +22,7 @@ _rt_require_dracut_args
 		   which touch cut chmod true false unlink \
 		   getfattr setfattr chacl attr killall sync \
 		   dirname seq basename fstrim chattr lsattr stat \
-		   file ldd logger \
+		   file ldd mkfs.btrfs tc rsync \
 		   ${SAMBA_SRC}/bin/smbd \
 		   ${CIFS_UTILS_SRC}/swnd " \
 	--include "$RAPIDO_DIR/autorun/cifs_witness.sh" "/.profile" \
@@ -30,7 +30,7 @@ _rt_require_dracut_args
 		  "/lib/dracut/hooks/emergency/00-rapido-init.sh" \
 	--include "$RAPIDO_DIR/rapido.conf" "/rapido.conf" \
 	--include "$RAPIDO_DIR/vm_autorun.env" "/vm_autorun.env" \
-	--add-drivers "cifs zram ccm gcm ctr" \
+	--add-drivers "cifs lzo lzo-rle btrfs zram ccm gcm ctr sch_tbf sch_htb sch_sfq" \
 	--modules "bash base systemd systemd-initrd dracut-systemd" \
 	$DRACUT_EXTRA_ARGS \
 	$DRACUT_OUT || _fail "dracut failed"

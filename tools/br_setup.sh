@@ -76,6 +76,7 @@ fi
 
 iptables -I FORWARD 1 -i virbr0 -o rapido-br -j ACCEPT
 iptables -I FORWARD 1 -o virbr0 -i rapido-br -j ACCEPT
+${RAPIDO_DIR}/tools/wondershaper -a rapido-br -u 128000 -d 128000
 
 # success! clear unwind
 unwind=""
