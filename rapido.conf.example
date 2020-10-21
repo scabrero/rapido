@@ -158,6 +158,10 @@ VM2_HOSTNAME="rapido2"
 #############################
 
 ######### Name resolution #########
+# Comma separated dns servers to add to /etc/resolv.conf.
+# Requires _vm_ar_hosts_create in cut script
+#NAME_SERVERS="192.168.103.51, 192.168.104.51"
+
 # Comma separated hosts to add to /etc/hosts.
 # Requires _vm_ar_hosts_create in cut script
 #EXTRA_HOSTS="192.168.103.200 fs.fover.ad, 192.168.104.200 fs.fover.ad"
