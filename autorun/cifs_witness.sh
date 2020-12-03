@@ -25,7 +25,7 @@ creds_path="/tmp/cifs_creds"
 [ -n "$CIFS_DOMAIN" ] && echo "domain=${CIFS_DOMAIN}" >> $creds_path
 [ -n "$CIFS_USER" ] && echo "username=${CIFS_USER}" >> $creds_path
 [ -n "$CIFS_PW" ] && echo "password=${CIFS_PW}" >> $creds_path
-mount_args="-ocredentials=${creds_path},witness"
+mount_args="-ocredentials=${creds_path},witness,echo_interval=8"
 [ -n "$CIFS_MOUNT_OPTS" ] && mount_args="${mount_args},${CIFS_MOUNT_OPTS}"
 set -x
 
@@ -47,7 +47,7 @@ EOF
 modprobe cifs || _fatal "failed to load cifs"
 echo 'module cifs +p' > /sys/kernel/debug/dynamic_debug/control
 echo 'file fs/cifs/* +p' > /sys/kernel/debug/dynamic_debug/control
-echo 7 > /proc/fs/cifs/cifsFYI
+echo 0 > /proc/fs/cifs/cifsFYI
 
 # Setup RAM disk
 modprobe zram num_devices="1" || _fatal "failed to load zram module"
@@ -63,13 +63,14 @@ dd if=/dev/zero of=/mnt/zram/1G.bin bs=1M count=512
 ps -eo args | grep -v grep | grep /usr/lib/systemd/systemd-journald \
 	|| /usr/lib/systemd/systemd-journald &
 
+echo "/tmp/core-%e.%p.%h.%t" > /proc/sys/kernel/core_pattern
+
 # Start swnd, the witness service user-space daemon
-swnd &
+swnd -d10 &
 
 ping -c 5 ${CIFS_SERVER}
 
 mkdir -p /mnt/cifs
-mount -t cifs //${CIFS_SERVER}/${CIFS_SHARE} /mnt/cifs \
-	"$mount_args" || _fatal
+mount -t cifs //${CIFS_SERVER}/${CIFS_SHARE} /mnt/cifs "$mount_args"
 
 set +x

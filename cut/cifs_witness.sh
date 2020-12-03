@@ -24,8 +24,8 @@ _rt_require_conf_dir CIFS_UTILS_SRC
 		mount.cifs ip ping getfacl setfacl truncate du \
 		which touch cut chmod true false unlink \
 		getfattr setfattr chacl attr killall sync \
-		dirname seq basename fstrim chattr lsattr stat \
-		file ldd mkfs.btrfs tc rsync \
+		dirname seq basename fstrim chattr lsattr stat clear \
+		file ldd mkfs.btrfs tc rsync reset kinit klist kdestroy \
 		request-key cifs.upcall key.dns_resolver \
 		/usr/lib/systemd/systemd-journald journalctl \
 		${SAMBA_SRC}/sbin/smbd \

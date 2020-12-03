@@ -86,7 +86,7 @@ ps -eo args | grep -v grep | grep /usr/lib/systemd/systemd-journald \
 	|| /usr/lib/systemd/systemd-journald &
 
 # Start swnd, the witness service user-space daemon
-swnd &
+swnd -d10 &
 
 mkdir -p /mnt/cifs
 mount -t cifs //${CIFS_SERVER}/${CIFS_SHARE} /mnt/cifs \
